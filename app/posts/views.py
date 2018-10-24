@@ -6,7 +6,7 @@ from .models import Post
 
 def post_list (request):
     posts = Post.objects.all()
-    contest = {
+    context = {
         'posts' : posts,
     }
-    return render(request, 'posts/posts_list.html',context)
+    return render(request, 'posts/post_list.html', context)
