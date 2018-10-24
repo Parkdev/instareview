@@ -1,9 +1,20 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div>
+<div>
     {% for post in posts %}
-    <div><img src="{{ post.photo.url }}" alt=""></div>
-    {% endfor %}
+    <div class="col col-lg-4 offset-lg-4">
+      <div class="card">
+        <div class="card-header">
+            {{ post.author }}
+        </div>
+        <div class="card-body">
+            <img src="{{ post.photo.url }}" class="card-img-top">
+        </div>
+      </div>
     </div>
+    {% endfor %}
+
+</div>
+
 {% endblock %}
