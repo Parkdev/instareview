@@ -3,13 +3,17 @@
 {% block content %}
 <div>
 <h2>포스트 추가</h2>
-    <form action="">
-        <div class="form-group">
-            <label for="id-photo">사진 업로드</label>
-            <input type="file" id="id-photo" class="form-control-file">
-        </div>
+    <form action="" enctype="multipart/form-data" method="POST">
+        {% csrf_token %}
+        {{ form }}
         <button class="btn btn-primary btn-block">업로드</button>
     </form>
 </div>
 {% endblock %}
 
+{#enctype이 있어야 파일을 보내고 input에 이름이있어야 데이터를 처리한다#}
+{# <div class="form-group">#}
+{#            <label for="id-photo">사진 첨부</label>#}
+{#            <input type="file" id="id-photo" name="photo" class="form-control-file">#}
+{#        </div>#}
+{#위 기능을 장고의 form기능으로 대체할 수 있다.#}
