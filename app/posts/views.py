@@ -14,6 +14,8 @@ def post_list (request):
     return render(request, 'posts/post_list.html', context)
 
 def post_create(request):
+    if not request.user.is_authenticated:
+        return redirect('posts:post-list')
 
     if request.method == 'POST':
         post = Post(
