@@ -1,7 +1,7 @@
+from django.conf import settings
 from django.shortcuts import render, redirect
 
 # Create your views here.
-from members.models import User
 from .forms import PostCreateForm
 from .models import Post
 
@@ -17,7 +17,7 @@ def post_create(request):
 
     if request.method == 'POST':
         post = Post(
-            author=User.objects.first(),
+            author=request.user,
             photo=request.FILES['photo'])
         post.save()
         return redirect('posts:post-list')
