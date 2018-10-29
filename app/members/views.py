@@ -31,20 +31,22 @@ def logout_view(request):
         return redirect('posts:post-list')
 
 def signup_view(request):
+    context = {
+        'form': SignupForm()
+    }
+
     if request.method == 'POST':
         username = request.POST['username']
         password1 = request.POST['password1']
         password2 = request.POST['password2']
-        if username == User.objects.filter(username=username).exists():
-            return HttpResponse('존재하는 아이디입니다.')
+
+
+        if User.objects.filter(username=username).exists():
+            context['error'] = f'{username}은 이미 사용중입니다.'
         elif password1 != password2:
-            return HttpResponse('비밀번호가 다릅니다.')
-        user = User.objects.create_user(username=username, password=password1)
-        login(request, user)
-        return redirect('posts:post-list')
-    else:
-        form = SignupForm()
-        context = {
-            'form' : form
-        }
-        return render(request,'members/signup.html', context)
+            context['error'] = '비밀번호가 일치하지 않습니다.'
+        else:
+            user = User.objects.create_user(username=username, password=password1)
+            login(request, user)
+            return redirect('posts:post-list')
+    return render(request,'members/signup.html', context)
