@@ -15,7 +15,7 @@ def post_list (request):
 
 def post_create(request):
     if not request.user.is_authenticated:
-        return redirect('posts:post-list')
+        return redirect('members:login')
 
     if request.method == 'POST':
         post = Post(
